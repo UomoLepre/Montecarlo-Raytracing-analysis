@@ -1,8 +1,8 @@
 import numpy as np
 
 npart = 1000
-nx =20
-ny =20
+nx =400
+ny =400
 
 
 s = (nx,ny) #setting matrix dimension
@@ -39,6 +39,7 @@ for ix in x_axis:
 			
 		if (((x - al/2)**2 + (y - al/2)**2) < (al*0.095)):
 			a[ix,iy] = 0
+			
 		#nozzle
 		if(y > al * 0.6 and y < al * 0.7 and x > al * 0.7):
 			a[ix,iy] = 2
@@ -50,6 +51,14 @@ for ix in x_axis:
 		if(y > al * 0.32 and y < al * 0.38 and x > al * 0.72):
 			a[ix,iy] = 0
 
-with open('outfile.txt','wb') as f:
-	for line in a:
-		np.savetxt(f, line, fmt='%.2f')
+''' 
+#Print Geometry (nx=400, ny = 400)
+def matprint(mat, fmt="g"):
+    col_maxes = [max([len(("{:"+fmt+"}").format(x)) for x in col]) for col in mat.T]
+    for x in mat:
+        for i, y in enumerate(x):
+            print(("{:"+str(col_maxes[i])+fmt+"}").format(y), end="  ")
+        print("")
+
+matprint(a)
+'''
