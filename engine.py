@@ -1,9 +1,9 @@
 import numpy as np
 import math, random
 
-npart =1
-nx = 20
-ny = 20
+npart =2
+nx = 40
+ny = 40
 
 s = (nx, ny)  # setting matrix dimension
 
@@ -91,7 +91,7 @@ for i in part:
 	
 		
 		if (ix >= 0 and ix < nx and iy >= 0 and iy < ny):
-			hyst[ix, iy] = hyst[ix, iy] + 1
+			hyst[ix, iy] = hyst[ix, iy] + weight
 		'''
 		# collisions with gas atoms
 		if random.uniform(0, 1) < 1 - math.exp(-dl):
@@ -112,7 +112,7 @@ for i in part:
 			# am I inside diffusing obstacle?
 			if (a[ix, iy] == 2):
 				while True:
-
+					move_obs(xold,yold,zold)
 					x = xold
 					y = yold
 					z = zold
@@ -171,3 +171,5 @@ matprint(hyst)
     for line in mat:
         np.savetxt(f, line, fmt='%2.f')
         '''
+
+#def move_obs(x,y,z)
