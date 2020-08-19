@@ -1,9 +1,9 @@
 import numpy as np
 import math, random
 
-npart = 500
+npart = 100
 nx = 40
-ny = 20
+ny = 40
 
 s = (nx, ny)  # setting matrix dimension
 
@@ -47,16 +47,15 @@ for ix in x_axis:
 		# nozzle
 		if (y > al * 0.6 and y < al * 0.7 and x > al * 0.7):
 		    a[ix, iy] = 2
-		#if (y > al * 0.62 and y < al * 0.68 and x > al * 0.72):
-		    #a[ix, iy] = 0
+		if (y > al * 0.62 and y < al * 0.68 and x > al * 0.72):
+		    a[ix, iy] = 0
 
 		if (y > al * 0.3 and y < al * 0.4 and x > al * 0.7):
 		    a[ix, iy] = 2
-		#if (y > al * 0.32 and y < al * 0.38 and x > al * 0.72):
-		    #a[ix, iy] = 0
+		if (y > al * 0.32 and y < al * 0.38 and x > al * 0.72):
+		    a[ix, iy] = 0
 
 escape = 0
-omega = 0  # to account for non conservative collision
 
 pi = 3.1415926535
 part = range(npart)  # from 0 to npart-1
@@ -71,9 +70,9 @@ for i in part:
 	mu = 2 * (random.uniform(0, 1)) - 1
 	phi = 2 * pi * random.uniform(0, 1)
 
-	free = True
 
-	while free:
+
+	while True:
 		#print("i: ", i, " x: ", x, " y: ", y," mu: " , mu," phi: ", phi)
 		st = math.sqrt(1 - (mu ** 2))
 
@@ -104,16 +103,18 @@ for i in part:
 			mu = 2 * (random.uniform(0, 1) ) - 1
 			phi = 2 * pi * random.uniform(0, 1)
 			st = math.sqrt(1 - mu ** 2)
-		'''
+			'''
+			
+		
 			
         	# am i out of domain?
 		if (ix < 0 or ix >= nx-1 or iy < 0 or iy >= ny-1):
-			free = False
+			break
 		else:
 
 			# am I inside absorbing obstacle?
 			if (a[ix, iy] == 1):
-				free = False
+				break
 
 			# am I inside diffusing obstacle?
 			if (a[ix, iy] == 2):
@@ -137,7 +138,7 @@ for i in part:
 					ix = int(x / dx) 
 					iy = int(y / dy) 
 
-					if (a[ix, iy] != 0):
+					if (a[ix, iy] == 0):
 						break
 
 	escape = escape + weight
@@ -152,15 +153,8 @@ for ix in x_axis:
     for iy in y_axis:
         if (a[ix, iy] != 0):
             hyst[ix, iy] = -1
-'''
-for ix in x_axis:
-    for iy in y_axis:
-        print(math.log(hyst[ix, iy]))
-        '''
 
-# Print Geometry (nx=400, ny = 400)
-
-
+#Print Function
 def matprint(mat, fmt="g"):
     col_maxes = [max([len(("{:"+fmt+"}").format(x)) for x in col]) for col in mat.T]
     for x in mat:
