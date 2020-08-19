@@ -1,13 +1,14 @@
 import numpy as np
 import math, random
 
-npart =2
+npart = 500
 nx = 40
-ny = 40
+ny = 20
 
 s = (nx, ny)  # setting matrix dimension
 
 hyst = np.zeros(s)  # float64
+
 a = np.zeros(s, dtype=int)  # int64
 
 logical = True
@@ -25,6 +26,10 @@ dl = dx * 0.5  # verifica se ci passo
 x_axis = range(nx)  # from 0 to nx-1
 y_axis = range(ny)  # from 0 to ny-1
 
+for i in x_axis:
+	for j in y_axis:
+		hyst[i,j] = 7
+		
 # exploring space
 for ix in x_axis:
 	for iy in y_axis:
@@ -42,13 +47,13 @@ for ix in x_axis:
 		# nozzle
 		if (y > al * 0.6 and y < al * 0.7 and x > al * 0.7):
 		    a[ix, iy] = 2
-		if (y > al * 0.62 and y < al * 0.68 and x > al * 0.72):
-		    a[ix, iy] = 0
+		#if (y > al * 0.62 and y < al * 0.68 and x > al * 0.72):
+		    #a[ix, iy] = 0
 
 		if (y > al * 0.3 and y < al * 0.4 and x > al * 0.7):
 		    a[ix, iy] = 2
-		if (y > al * 0.32 and y < al * 0.38 and x > al * 0.72):
-		    a[ix, iy] = 0
+		#if (y > al * 0.32 and y < al * 0.38 and x > al * 0.72):
+		    #a[ix, iy] = 0
 
 escape = 0
 omega = 0  # to account for non conservative collision
@@ -56,10 +61,11 @@ omega = 0  # to account for non conservative collision
 pi = 3.1415926535
 part = range(npart)  # from 0 to npart-1
 
+#start move
 for i in part:
 	# implementing sources
 	weight = 1  # initial weight
-	x = al * 0.5
+	x = al * 0.9
 	y = al * 0.5
 	z = 0
 	mu = 2 * (random.uniform(0, 1)) - 1
@@ -111,8 +117,7 @@ for i in part:
 
 			# am I inside diffusing obstacle?
 			if (a[ix, iy] == 2):
-				while True:
-					move_obs(xold,yold,zold)
+				while True:					
 					x = xold
 					y = yold
 					z = zold
@@ -125,24 +130,23 @@ for i in part:
 					deltax = dl * st * math.cos(phi)
 					deltay = dl * st * math.sin(phi)
 
-					xold = x
-					yold = y
-					zold = z
+					x = x + deltax
+					y = y + deltay
+					z = z + deltaz
 
 					ix = int(x / dx) 
 					iy = int(y / dy) 
 
 					if (a[ix, iy] != 0):
 						break
-					
-							
-			
-		#print(x, " ", y)	        
+
 	escape = escape + weight
 
 escape = escape / npart
 
-hyst = np.divide(hyst, npart * dx * (dy + 0.00001))
+#end move
+
+#hyst = np.divide(hyst, npart * dx * (dy + 0.00001))
 
 for ix in x_axis:
     for iy in y_axis:
@@ -164,12 +168,4 @@ def matprint(mat, fmt="g"):
             print(("{:"+str(col_maxes[i])+fmt+"}").format(y), end="  ")
         print("")
 
-matprint(hyst)
-
-'''
-#with open('outfile.txt', 'wb') as f:
-    for line in mat:
-        np.savetxt(f, line, fmt='%2.f')
-        '''
-
-#def move_obs(x,y,z)
+matprint(hyst)	
