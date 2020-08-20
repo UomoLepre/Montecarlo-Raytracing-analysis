@@ -2,9 +2,9 @@ import numpy as np
 import math, random
 import matplotlib.pyplot as plt
 
-npart = 10
-nx = 40
-ny = 40
+npart = 1000
+nx = 400
+ny = 400
 
 s = (nx, ny)  # setting matrix dimension
 
