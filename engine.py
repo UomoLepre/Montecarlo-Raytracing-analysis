@@ -1,9 +1,10 @@
 import numpy as np
 import math, random
+import matplotlib.pyplot as plt
 
-npart = 100
-nx = 40
-ny = 40
+npart = 1000
+nx = 400
+ny = 400
 
 s = (nx, ny)  # setting matrix dimension
 
@@ -26,9 +27,6 @@ dl = dx * 0.5  # verifica se ci passo
 x_axis = range(nx)  # from 0 to nx-1
 y_axis = range(ny)  # from 0 to ny-1
 
-for i in x_axis:
-	for j in y_axis:
-		hyst[i,j] = 7
 		
 # exploring space
 for ix in x_axis:
@@ -41,8 +39,8 @@ for ix in x_axis:
 		if (((x - al / 2) ** 2 + (y - al / 2) ** 2) < (al * 0.1)):
 		    a[ix, iy] = 2
 
-		if (((x - al / 2) ** 2 + (y - al / 2) ** 2) < (al * 0.095)):
-		    a[ix, iy] = 0
+		#if (((x - al / 2) ** 2 + (y - al / 2) ** 2) < (al * 0.095)):
+		    #a[ix, iy] = 0
 
 		# nozzle
 		if (y > al * 0.6 and y < al * 0.7 and x > al * 0.7):
@@ -145,16 +143,19 @@ for i in part:
 
 escape = escape / npart
 
+
 #end move
 
-#hyst = np.divide(hyst, npart * dx * (dy + 0.00001))
+hyst = np.divide(hyst, npart * dx * (dy + 0.00001))
 
 for ix in x_axis:
     for iy in y_axis:
         if (a[ix, iy] != 0):
-            hyst[ix, iy] = -1
+            hyst[ix, iy] = 10
 
-#Print Function
+
+'''
+#Print Matrix Function
 def matprint(mat, fmt="g"):
     col_maxes = [max([len(("{:"+fmt+"}").format(x)) for x in col]) for col in mat.T]
     for x in mat:
@@ -163,3 +164,11 @@ def matprint(mat, fmt="g"):
         print("")
 
 matprint(hyst)	
+'''
+
+#Plot
+hyst_log = np.log(hyst)
+
+plt.imshow(hyst_log)
+plt.colorbar()
+plt.show(block=True)
