@@ -2,9 +2,9 @@ import numpy as np
 import math, random
 import matplotlib.pyplot as plt
 
-npart = 1000
-nx = 400
-ny = 400
+npart = 10
+nx = 40
+ny = 40
 
 s = (nx, ny)  # setting matrix dimension
 
@@ -59,6 +59,7 @@ pi = 3.1415926535
 part = range(npart)  # from 0 to npart-1
 
 #start move
+num = 0
 for i in part:
 	# implementing sources
 	weight = 1  # initial weight
@@ -67,6 +68,8 @@ for i in part:
 	z = 0
 	mu = 2 * (random.uniform(0, 1)) - 1
 	phi = 2 * pi * random.uniform(0, 1)
+	print (num)
+	num = num +1
 
 
 
