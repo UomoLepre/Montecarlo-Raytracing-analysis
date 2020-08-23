@@ -9,7 +9,9 @@ For proper operation, you need to install:
   Some helpful guide about installation
 
   MAC OS: https://evansdianga.com/install-pip-osx
+  
   Linux (Ubuntu): https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04 (It also works with Ubuntu 20.04)
+  
   Windows: 
   
 - numpy and matplotlib: 
