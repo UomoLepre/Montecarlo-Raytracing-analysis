@@ -12,7 +12,7 @@ For proper operation, you need to install:
   
   Linux (Ubuntu): https://linuxize.com/post/how-to-install-pip-on-ubuntu-18.04 (It also works with Ubuntu 20.04)
   
-  Windows: 
+  Windows: https://www.youtube.com/watch?v=mFqdeX1C-8M (Remember to press OK on each window before to try pip3 command CMD as Administrator)
   
 - numpy and matplotlib: 
   write "pip3 install numpy" and  "pip3 install matplotlib"
